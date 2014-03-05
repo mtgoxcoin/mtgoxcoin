@@ -1071,10 +1071,10 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 3.5 * 24 * 60 * 60; // mtgoxcoin: 3.5 days
-static const int64 nTargetSpacing = 2.5 * 60; // mtgoxcoin: 2.5 minutes
+static const int64 nTargetTimespan = 30; // mtgoxcoin: 2 minute
+static const int64 nTargetSpacing = 15; // mtgoxcoin: 1 minute
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
-
+static const int64 nReTargetHistoryFact = 3;
 //
 // minimum amount of work that could possibly be required nTime after
 // minimum work required was nBase
@@ -1146,10 +1146,10 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nTargetTimespan/4)
-        nActualTimespan = nTargetTimespan/4;
-    if (nActualTimespan > nTargetTimespan*4)
-        nActualTimespan = nTargetTimespan*4;
+    if (nActualTimespan < nTargetTimespan/12)
+        nActualTimespan = nTargetTimespan/12;
+    if (nActualTimespan > nTargetTimespan*1.2)
+        nActualTimespan = nTargetTimespan*1.2;
 
     // Retarget
     CBigNum bnNew;
