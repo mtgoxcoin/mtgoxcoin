@@ -31,7 +31,7 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0x56ab86a29b0948a69ef408aaa36b1c571f9f0d56577e6ff2813ed1115fbcc932");
+uint256 hashGenesisBlock("0xbdf025df56b8d992f3c3f0e9f626ad88aacfa439213abc6c21417118c120cc06");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // mtgoxcoin: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -2723,7 +2723,7 @@ bool LoadBlockIndex()
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0x56ab86a29b0948a69ef408aaa36b1c571f9f0d56577e6ff2813ed1115fbcc932");
+        hashGenesisBlock = uint256("0xbdf025df56b8d992f3c3f0e9f626ad88aacfa439213abc6c21417118c120cc06");
     }
 
     //
@@ -2749,17 +2749,17 @@ bool InitBlockIndex() {
     // Only add the genesis block if not reindexing (in which case we reuse the one already on disk)
     if (!fReindex) {
         // Genesis Block:
-        //block.nTime = 1393953490
-        // block.nNonce = 2375843
-        //block.GetHash = 56ab86a29b0948a69ef408aaa36b1c571f9f0d56577e6ff2813ed1115fbcc932
-        //CBlock(hash=56ab86a29b0948a69ef4, PoW=00000cc9be991c8be146, ver=1, hashPrevBlock=00000000000000000000, hashMerkleRoot=5942b1$
-        //CTransaction(hash=5942b1906a, ver=1, vin.size=1, vout.size=1, nLockTime=0)
-        //CTxIn(COutPoint(0000000000, -1), coinbase 04ffff001d010403474f58)
-        //CTxOut(error)
-        //vMerkleTree: 5942b1906a
+        // block.nTime = 1393590000
+        // block.nNonce = 2680167
+        // block.GetHash = bdf025df56b8d992f3c3f0e9f626ad88aacfa439213abc6c21417118c120cc06
+        // CBlock(hash=bdf025df56b8d992f3c3, PoW=000006e122c548a6203e, ver=1, hashPrevBloc$
+        // CTransaction(hash=4450091ad1, ver=1, vin.size=1, vout.size=1, nLockTime=0)
+        // CTxIn(COutPoint(0000000000, -1), coinbase 04ffff001d01041d4672692c203238204$
+        // CTxOut(error)
+        // vMerkleTree: 4450091ad1
 
         // Genesis block
-        const char* pszTimestamp = "GOX";
+        const char* pszTimestamp = "Fri, 28 Feb 2014 12:20:00 GMT";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -2771,14 +2771,14 @@ bool InitBlockIndex() {
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1393953490;
+        block.nTime    = 1393590000;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 2375843;
+        block.nNonce   = 2680167;
 
         if (fTestNet)
         {
-            block.nTime    = 1393953490;
-            block.nNonce   = 2375843;
+            block.nTime    = 1393590000;
+            block.nNonce   = 2680167;
         }
 
         //// debug print
@@ -2786,7 +2786,7 @@ bool InitBlockIndex() {
         printf("%s\n", hash.ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x5942b1906adcc9451aed253de2da48f93372af5f8a8dfd34fbfc82e18af7d882"));
+        assert(block.hashMerkleRoot == uint256("0x4450091ad1639b7dcc3301ffa6d5e197f7ba2cb2a3267f15b04db7bf577c6d58"));
         block.print();
         assert(hash == hashGenesisBlock);
 
