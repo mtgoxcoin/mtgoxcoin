@@ -1146,10 +1146,10 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-	if (nActualTimespan < nTargetTimespan/1.2)
-	        nActualTimespan = nTargetTimespan/1.2;
-	    if (nActualTimespan > nTargetTimespan*12)
-	        nActualTimespan = nTargetTimespan*12;
+    if (nActualTimespan < nTargetTimespan/1.2)
+        nActualTimespan = nTargetTimespan/1.2;
+    if (nActualTimespan > nTargetTimespan*12)
+        nActualTimespan = nTargetTimespan*12;
 
     // Retarget
     CBigNum bnNew;
