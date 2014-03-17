@@ -1111,7 +1111,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Fork at 11000
     if(pindexLast->nHeight >= 11000)
     {
-        nTargetTimespan = 3 * 3 * 60; // 9 minutes, 3 blocks
+        nTargetTimespan = 10 * 3 * 60; // 30 minutes, 10 blocks
         nTargetSpacing = 3 * 60; // 3 minutes
         nInterval = nTargetTimespan / nTargetSpacing;
 		nReTargetHistoryFact = 1;
