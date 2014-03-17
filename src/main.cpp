@@ -1071,10 +1071,10 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 10 * 60; // mtgoxcoin: 10 minutes, 10 blocks
-static const int64 nTargetSpacing = 60; // mtgoxcoin: 1 minute blocks
-static const int64 nInterval = nTargetTimespan / nTargetSpacing;
-static const int64 nReTargetHistoryFact = 2;
+static int64 nTargetTimespan = 10 * 60; // mtgoxcoin: 10 minutes, 10 blocks
+static int64 nTargetSpacing = 60; // mtgoxcoin: 1 minute blocks
+static int64 nInterval = nTargetTimespan / nTargetSpacing;
+static int64 nReTargetHistoryFact = 2;
 //
 // minimum amount of work that could possibly be required nTime after
 // minimum work required was nBase
@@ -1107,6 +1107,22 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Genesis block
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
+	
+    // Fork at 11000
+    if(pindexLast->nHeight >= 11000)
+    {
+        nTargetTimespan = 3 * 3 * 60; // 9 minutes, 3 blocks
+        nTargetSpacing = 3 * 60; // 3 minutes
+        nInterval = nTargetTimespan / nTargetSpacing;
+		nReTargetHistoryFact = 1;
+    }
+	else
+	{
+		nTargetTimespan = 10 * 60; // mtgoxcoin: 10 minutes, 10 blocks
+		nTargetSpacing = 60; // mtgoxcoin: 1 minute blocks
+		nInterval = nTargetTimespan / nTargetSpacing;
+		nReTargetHistoryFact = 2;
+	}
 
     // Only change once per interval
     if ((pindexLast->nHeight+1) % nInterval != 0)
@@ -1146,10 +1162,21 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nTargetTimespan/1.2)
-        nActualTimespan = nTargetTimespan/1.2;
-    if (nActualTimespan > nTargetTimespan*12)
-        nActualTimespan = nTargetTimespan*12;
+    
+    if(pindexLast->nHeight >= 11000)
+    {
+		if (nActualTimespan < nTargetTimespan/1.2)
+	        nActualTimespan = nTargetTimespan/1.2;
+	    if (nActualTimespan > nTargetTimespan*1.2)
+	        nActualTimespan = nTargetTimespan*1.2;
+    }
+	else
+	{
+		if (nActualTimespan < nTargetTimespan/1.2)
+	        nActualTimespan = nTargetTimespan/1.2;
+	    if (nActualTimespan > nTargetTimespan*12)
+	        nActualTimespan = nTargetTimespan*12;
+	}
 
     // Retarget
     CBigNum bnNew;
