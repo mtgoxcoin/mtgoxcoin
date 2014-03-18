@@ -1109,7 +1109,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
         return nProofOfWorkLimit;
 	
     // Fork at 11000
-    if(pindexLast->nHeight >= 11000)
+    if(pindexLast->nHeight >= 15999)
     {
         nTargetTimespan = 10 * 3 * 60; // 30 minutes, 10 blocks
         nTargetSpacing = 3 * 60; // 3 minutes
@@ -1163,7 +1163,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
     printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
     
-    if(pindexLast->nHeight >= 11000)
+    if(pindexLast->nHeight >= 15999)
     {
 		if (nActualTimespan < nTargetTimespan/1.2)
 	        nActualTimespan = nTargetTimespan/1.2;
