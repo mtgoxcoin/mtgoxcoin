@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = mtgoxcoin-qt
 macx:TARGET = "mtgoxcoin-Qt"
-VERSION = 0.8.6.3
+VERSION = 0.8.6.5
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
